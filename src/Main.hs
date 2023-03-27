@@ -26,4 +26,8 @@ parseArgs args | length args == 1 = (".", head args)
 findMatchings :: FilePath -> FilePath -> IO [FilePath]
 findMatchings path name =
     showEntriesTrad path
-        >>= return . (filter (name `isInfixOf`)) . concat . map snd
+        >>= return . (filter (name `isInfixOf`)) . concat . map f
+  where
+    f :: (FilePath, [FilePath]) -> [FilePath]
+    f (pref, cc) = map ((pref ++ "/") ++) cc
+
