@@ -29,5 +29,5 @@ findMatchings path name =
         >>= return . (filter (name `isInfixOf`)) . concat . map f
   where
     f :: (FilePath, [FilePath]) -> [FilePath]
-    f (pref, cc) = map ((pref ++ "/") ++) cc
-
+    f (dir, []) = ["(D) " ++ dir]
+    f (pref, cc) = ("(D) " ++ pref) : map (("    " ++ pref ++ "/") ++) cc
